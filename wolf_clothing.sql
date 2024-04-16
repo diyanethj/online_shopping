@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 09, 2024 at 12:38 PM
+-- Generation Time: Apr 16, 2024 at 10:19 AM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -39,14 +39,7 @@ CREATE TABLE IF NOT EXISTS `banners` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `banners_slug_unique` (`slug`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `banners`
---
-
-INSERT INTO `banners` (`id`, `title`, `slug`, `photo`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Wolf Clothing', 'wolf-clothing', '/storage/photos/1/banners/attractive-asian-woman-showing-smartphone-app-shopping-bags-buying-online-via-application-standi.jpg', 'Online Fashion Store', 'active', '2024-04-09 05:50:49', '2024-04-09 06:27:28');
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -64,7 +57,14 @@ CREATE TABLE IF NOT EXISTS `brands` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `brands_slug_unique` (`slug`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `brands`
+--
+
+INSERT INTO `brands` (`id`, `title`, `slug`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Wolf', 'wolf', 'active', '2024-04-09 07:30:38', '2024-04-09 07:30:38');
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,14 @@ CREATE TABLE IF NOT EXISTS `carts` (
   KEY `carts_product_id_foreign` (`product_id`),
   KEY `carts_user_id_foreign` (`user_id`),
   KEY `carts_order_id_foreign` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `product_id`, `order_id`, `user_id`, `price`, `status`, `quantity`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, 1, 2125.00, 'new', 1, 2500.00, '2024-04-09 07:35:26', '2024-04-09 07:35:26');
 
 -- --------------------------------------------------------
 
@@ -113,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   UNIQUE KEY `categories_slug_unique` (`slug`),
   KEY `categories_parent_id_foreign` (`parent_id`),
   KEY `categories_added_by_foreign` (`added_by`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
@@ -122,7 +129,8 @@ CREATE TABLE IF NOT EXISTS `categories` (
 INSERT INTO `categories` (`id`, `title`, `slug`, `summary`, `photo`, `is_parent`, `parent_id`, `added_by`, `status`, `created_at`, `updated_at`) VALUES
 (5, 'Womens', 'womens', '<p>Womens Collection<br></p>', '/storage/photos/1/catagory/pexels-andrea-piacquadio-3771088.jpg', 1, NULL, NULL, 'active', '2024-04-09 06:03:23', '2024-04-09 06:16:45'),
 (4, 'Kids', 'kids', '<p>Kids Collection<br></p>', '/storage/photos/1/catagory/dolce-and-gabbana-summer-2016-child-collection-861-800x560.jpg', 1, NULL, NULL, 'active', '2024-04-09 06:02:55', '2024-04-09 06:02:55'),
-(6, 'Mens', 'mens', '<p>Mens Collection</p>', '/storage/photos/1/catagory/hero.jpg', 1, NULL, NULL, 'active', '2024-04-09 06:03:50', '2024-04-09 06:03:50');
+(6, 'Mens', 'mens', '<p>Mens Collection</p>', '/storage/photos/1/catagory/hero.jpg', 1, NULL, NULL, 'active', '2024-04-09 06:03:50', '2024-04-09 06:03:50'),
+(8, 'Shirts', 'shirts', 'Mens Shirts', NULL, 0, 6, NULL, 'active', '2024-04-09 07:28:39', '2024-04-09 07:29:01');
 
 -- --------------------------------------------------------
 
@@ -240,6 +248,13 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   PRIMARY KEY (`id`),
   KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('a8785ae7-fe2d-4c84-99ae-a2dbab0ac7fb', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Product Rating!\",\"actionURL\":\"http:\\/\\/127.0.0.1:8000\\/product-detail\\/mens-shirt\",\"fas\":\"fa-star\"}', NULL, '2024-04-09 07:37:17', '2024-04-09 07:37:17');
 
 -- --------------------------------------------------------
 
@@ -408,7 +423,14 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `products_brand_id_foreign` (`brand_id`),
   KEY `products_cat_id_foreign` (`cat_id`),
   KEY `products_child_cat_id_foreign` (`child_cat_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `title`, `slug`, `summary`, `description`, `photo`, `stock`, `size`, `condition`, `status`, `price`, `discount`, `is_featured`, `cat_id`, `child_cat_id`, `brand_id`, `created_at`, `updated_at`) VALUES
+(1, 'Mens Shirt', 'mens-shirt', '<p><br></p>', '<p>100% Cotton</p><p>Good Quality</p>', '/storage/photos/1/mens shirts/WhatsApp Image 2024-04-09 at 18.14.27_548284a6.jpg', 2, '', 'new', 'active', 2500.00, 15.00, 1, 6, 8, 1, '2024-04-09 07:32:31', '2024-04-09 07:32:31');
 
 -- --------------------------------------------------------
 
@@ -429,7 +451,14 @@ CREATE TABLE IF NOT EXISTS `product_reviews` (
   PRIMARY KEY (`id`),
   KEY `product_reviews_user_id_foreign` (`user_id`),
   KEY `product_reviews_product_id_foreign` (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_reviews`
+--
+
+INSERT INTO `product_reviews` (`id`, `user_id`, `product_id`, `rate`, `review`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 5, 'Good', 'active', '2024-04-09 07:37:17', '2024-04-09 07:37:17');
 
 -- --------------------------------------------------------
 
@@ -457,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `description`, `short_des`, `logo`, `photo`, `address`, `phone`, `email`, `created_at`, `updated_at`) VALUES
-(1, 'sad', 'sdad', 'asda', 'asda', 'sada', 'asda', 'asda', NULL, NULL);
+(1, 'Online Shopping Store', 'Online Shopping Store', '/storage/photos/1/logo/logo.jpg', '/storage/photos/1/logo/logo.jpg', 'aluthgedara,athkandawaka,lunuwatta', '0729314424', 'wolfclothingonline@gmail.com', NULL, '2024-04-09 07:24:08');
 
 -- --------------------------------------------------------
 
